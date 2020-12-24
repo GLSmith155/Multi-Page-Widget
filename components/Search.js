@@ -16,13 +16,19 @@ const Search = () => {
             srsearch: term,
           },
         });
-            setResults(data.query.search);
-        
+            setResults(data.query.search); 
     };
-    if (term) {
-        search();
-    }
- }, [term]);
+
+    const timeoutId = setTimeout(() => {
+        if (term) {
+            search();
+        }
+      }, 500);
+
+    return () => {
+        clearTimeout(timeoutId);
+    };
+}, [term]);
     
 const renderedResults = results.map((result) => {
     return (
